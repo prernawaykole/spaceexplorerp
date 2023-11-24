@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAMAAAB61OwbAAAAWlBMVEVHcEzzhCD2giDwhSX1hB70hCD2hR0Gh9EGic8Hhc33hR8Gis8Gic4EidGKjW0Dis8HhtMEidD0hBsDjdUFis/0hSDyhCXzhSLtiCnphyfzgyXwhCD6gRr2hB6il3V3AAAAHnRSTlMAOsZr4fHYcFka//6ltQdBK8tb5ZScGHZPLL6t44rtTjSGAAAA+klEQVR4AYXOBQKEIABE0bEJ6TLvf8ztDni2fgF8qlBQI69pkdf1+G0gFCcN+xNQzkcxEnT/AkilDR8sOwU53TngbtAUPzXsFEhvBs7FnwFuU+hB/x6gDdk1dCw2uSCxClMuYAmYM0EKAOL/QC44Yy3+sBLTCrQt9J8RzlHC0sJQvFqXeqvrfm1Pp4VVYVNCCOeMuAHCvs1Vi36W3dwhbRilHwzxymsvhEJa16aausQm21cd7AY+OCfgyOCdJgJxn3vb29jPYY8dqlMgJTXKacCpU4B92WXcsc8IMSBu8FqIAZ4C5HwDNBZPskbBgoIVBTsKLAoqFES8OwKUOQ34yOORCAAAAABJRU5ErkJggg==">
+    <title>Bootstrap demo</title>
+    <style>
+        .frontpage
+        {
+            height:500px;
+            width auto;
+            border: 3px solid black;
+            background-image: url(./img1.jpg);
+            background-position:center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color:white;
+            text-align: center;
+                }
+                h1{
+                  
+                    padding-top: 90px;
+                }
+                .imagealigncenter
+                {
+                    display: flex;
+                 justify-content: center;
+                }
+               
+                .common 
+     {
+        padding-left: 140px;
+           display: inline-block;
+          width:33%;
+          height:100px;
+          color: white;
+          
+     }
+     li:hover {
+  background-color: rgb(123, 219, 234);
+  color:black;
+}
+     p{
+        color:white;
+        text-align: center;
+        text-align: justify;
+      text-justify: inter-word;
+       font-style:italic;
+        
+     }
+     .centerimg
+     {
+        border-radius: 10px;
+        padding-left: 70px;
+        
+     }
+     .table
+     {
+        display:table;
+        width:100%;
+     }
+     .table1
+     {
+        display:table-row;
+        margin-bottom: 15px;
+     }
+     .table3
+     {
+        display: table-cell;
+                padding-right: 5px; 
+     }
+  
+    
+
+        </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body style="background-color:black;">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-black" data-bs-theme="dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Space Explore</a>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Credits</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Share</a>
+                  </li>
+                
+                  
+                </ul>
+                <form class="d-flex" role="search">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                       Subscribe
+                      </button>
+                </form>
+              </div>
+            </div>
+          </nav>
+      </header>
+     <div class="frontpage">
+         
+           <h1 >SPACE ADVISOR</h1>
+           <div>"When you look at the stars and the galaxy, you feel that you are not just from any particular piece of land, but from the solar system."
+
+            - Kalpana Chawla</div>
+         
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Subscribe For NewsLetter</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="table"action="">
+                        <p class="table1">
+                            <label class="table3"for="">Email</label>
+                            <input type="email">
+                        </p>
+                        <p>
+                            <label class="table3" for="">Mobile No.</label>
+                            <input type="text">
+                        </p>
+                    </form>
+                    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+     <div class="container">
+        
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    
+                  <div class="carousel-item active">
+                    <img class="imagealigncenter"src="/img6.png" class="d-block  w-100"  style="border-radius:30px; height: 180px; " >
+                  </div>
+                  <div class="carousel-item">
+                    <img class="imagealigncenter" src="./img4.jpg" class="d-block w-100 " style="border-radius:30px; height: 180px; " >
+                  </div>
+                  <div class="carousel-item">
+                    <img class="imagealigncenter" src="/img5.jpg" class="d-block  w-100 "  style="border-radius:30px; height: 180px; ">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="imagealigncenter" src="/img3.jpg" class="d-block w-100 "  style="border-radius:30px; height: 180px; ">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        
+        <br>
+     
+        <hr style="color:white">
+        <div class="row">
+            <div class="col-4">
+                   <img class="centerimg"src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVFBgVFBQYGRgZGxoaHBobGhgaGBsaGhsaGhkbGxobIS0kGx0qIRsaJTclKi4xNDQ0GiM6PzozPi0zNDEBCwsLEA8QHxISHzMqIyo1NDMzMzUzMzMzMzM5MzMzMzMzMzMzMzMzMzMzMzMzMzUzMzMzMzUzMzMzMzMzMzMzM//AABEIAPsAyQMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAADAQIEBQYHAP/EAD4QAAIBAgQDBQYDBgYCAwAAAAECEQADBBIhMQVBUSJhcYGRBhMyobHBQtHwI1KCkuHxBxQzYnLCorIVJEP/xAAaAQACAwEBAAAAAAAAAAAAAAABBAACAwUG/8QALBEAAgIBBAECBQMFAAAAAAAAAAECEQMEEiExQSJhBRNxobEyUYEjM0OR8P/aAAwDAQACEQMRAD8Aw/sdg7r49GRCwS4pcmAFXMM8liJMTpuatvbb2at4O4r22JFx2ypEKiZQ2UdYM+Ud5rPcH41et4o3RcILPLxEOMwzSsQSROsTqa0Xt57R+/u+5CLktuAricxKIyPPIjMTHh300t29NdGbKbhOEuXLqC3bd8roWygkKoYEljsogHU1LuplZl6Ej0MVG4fxy/hwRbuMEnMyaFD17LSAY5jWrbj9pUxNxVMgMPUqrMPIk0NTe5WDGQJpQ1NpQKwNKCo1PzU1acRVQo9NOU0iLRVWoGh4GlDZKNTGFFFRFWlVKSnCrAYxk3oJWpBpgWoEYooiUijWpFq3QIIF0poqQFrzgUGBAM1KWFIaaRQCAk602iutNCdagRppJoTUk1AGWwv+ofOj3SYRidZWT40f2e4acRedE+MI7oP3mXXL5iR4xS3sHc9x73IRbBVQx0BbeFn4jAMxtGtPxaplH2KRv4VOwl0tnzEklsxJ1Jzcz5zS8K4a+Izrb1dLZuBebhWQMo74aR1iKHw1SWcgHLCjNHZDCSBO0kHbuoZqcX7Ah2TAKIFpVSn5aTNREFHVdKGoogNCiCkU5DSA0oFSiBZ60kA7V5jypkUSghWvEUteAok6PBNKTLRVFLlqAsYiCjqtINBSqTQCh9CcU6KR6BYDSFaRq9NQghFI4pxpjiahCM60mWnsKbFEgD/D69aTFEtPvO17s9rLs2bbnE76edX3+JVh3VLttlfDouQZNRbfnmjaYA8orBcExRt31uD8BDR1AYEjzEjzqSLjBGAYjOsNBIDc+11660zHG291lJOmdA/w1w+GW4lwYnNfZGAthWUAEAtqw7RGWZEVL9v8O4Nn3aoLCuysEgBbjSBmA26eJrAey/FP8vdt3onILmnUlHRR4Zis91BGLuBi+dpdw1zWM8sC2YbHnQlibe6/BE64L9Up2WnRRQR0rAtZHK0h0ozpTCKgAdPRaQJUmxbg6moGwSqelI29Li8UASP71VNxEsdCBHWZqBLdVBrwSs0nE7rOBIUHbTWKubWJYDVg3ft5GoisosnCnhahWMcpbKdG+tWKCiwLjsHlpwWiNQXmqlkKXpGNCzRXmegEGxpya0hps0SBGWmMKWZpMtQgNrdJ7uilaTLUIYjBoczGDABk8hO09Km2jKjw+1W/sJw33zYhXEW3tMmbTS5mRkI7xE/3qLxHDW7V17VslgkKWO7NEsY5DUCO6m8c1e0pJeSqwp7JHRx9RUq8sqR3Ve+yHCBireLs6B193ctsdAHBaQTHwsCAfAHlSe0nC7eFZbKubl0DNcbZFzDsoq+GpJ11XbarLIr2+QNeSdhnzIjdQD6iake7qu4I2ayncCv8pI+1WiGlHwwg2FCijutJloIgxEpl+5lUk08k86qeK4rNpyX68/y9ahZAblwt5+ZP9KFbwoY9mWI6SfoCPnU/gmAbEEINM2rHoo+/3NdM4dwJLdsKqgDwpfJl2ukMY8W5WzlC8NuOZKkRtoZB6zUW87KxVtDXZ73DgBoK5v7W8MyOzRvr6f0oY8rlKmXniSjaMxiHq64JxTN+zc9obE8x0PfVDM0FXKuCNwdD3imRdpM36mvNUbAYj3iBhzGo6HmKlFiBNArRFaminkTXgBUIDilK0+KIiVCWNFuvZKkZaSoCgbJQ/dmpBNMmgSjMexfFmsXWaZXIzZeRZRmXw+GPOh4vHi87XMoV5h8vwMRoGUbjTSNdhrVNgvi8x96kYY9t/H7mnMcFu3eQSNP7G8cOHu3FYA2wj3MoEMzKkgT0IU0/2l4tYxRF1LT2r2gcdlkuDacwg5hpqRqPCsuGIuGDEr8tiPQkedSDVo41ucvIG+C59nG7Dr+68jwYA/WauwazXAni469VVv5SQf8A2FaEsaVyKpMKCg0RRQENFU1QgHFuERnJ0AmsTibxZT/uIHluav8A2qxOS0F5uY8hqf131lV1XwB82bT7mo2XijqX+G+H7L3I+IhR4IIPzmujrtXJ8Dhblq0qtjVtmBFtFLt3agjWtP7McYYgW2uFzyYiCaTkuXIci+FE1mIXSsZ7YYXPbLDUrNWPtRjnWEVysgifEb+VYu4jBQbmNdQ22a3IPmWoRjbtEcqVGMcQxjrP6+VDupB/X62qXxSx7u4O2HB2YCAfKdD+VAfl+vP0inU7Qs1TLf2axOrWyd9R9D9q0easPhL/ALu4j8lPyOh+R+VbtQCJmoVYCRMUQW6eU5xTSDUKjWSlFemvRUDQtepKUVCDSKbkohps0AUYfheCz27l0HW21qR1V86+ubL6mmrYe3cZbilWgEqfiE6gEcjBGh11rY/4cXLS27zaKyAO7N8OUByh3gAa+flWY4irf5q8XbMWOYNyZW1Ug9IgeVMY53KgSXFgLWEa5cbLutt3jmwQSwHflk+VFu22QwwKmAYOhhhIkctCNKsfZoqMUjtcysAyqsHtl1KxOwGtROKI4uuLk5s7E+BMj5EVspetoo1whOGPlvp/uVl+Wb7Vp0eshaeLls9HUfzaH61rBbNYZv1FkuCWizRMlMTQRTXeNayIY72vv5roXki/Mn+3rULgmHN29btj8Trp3L2m+lB4ld95dd5+JjHhy+VWnsdcCYyyx+GWB7iVaPnFZyfDNoLlHSrHskAGzHN7yC4YFgY1A32HKrTDcKWyVBMkRA6AaADoNdqtjxBQvZieVQYfOCmVtZOaZnXY9KT3N+R5RS5Kziyrcu9rw8J016b0zF+zvvGUvOZVCq+pIUbAGdBqaTG2cRcLkqiK2h/EfKDAq54di8ttVZs0ACTvIqXXklJnOvaz2YWzbLJPZ7WvqfCsXZYlJ3g/T9fKur+1uNUqQI10iuW8LtaOfwggfM/nTGKTa5FcqpjWXQ90afrwrY8Dv57S9RofKsY9yGI5HSrz2UxMOUP4hI8RvWxk1watBSslGtrRjZmiZ2VbrrTRpVhct1FdNahZMHXjSkUxqhDxNNzU8CmwKhDFcI4k1qziba//AK21UnoA2Y+okedQ8Ee15H6zS2EIRiQYK6HkYkGKZgPi8qbhVoq/JYYe97u9auckcN/KQT8gaJfxTXDmYk6sFkyVXMSFneBOlR3GoouFtFpABME+k7noNavKk9zBGLlSXY02y0RuCD6a1tLJkSNjrVFZsBR38zV5wwTbTwj00+1ISzKc+Oh3PpXhgm+2GIqBxvEe7sseZ7I8TM/KaswlZH2rxMsqToNY7zzqWKpcmcZtoFSMFifdOrxmg7bdfzmh27cjX+3OKZiWkgCpRf3O48HZHtAg6MoZWB5HUVI4bktkrdV7pJ0dniBO2UQBWA9h/aEInuLh2koeUdD0jWujYAJdWQaRcXGVDkJKSG8Uv2chJtGROzsefUcuXnVLwSzLF2ZwsEBS0jXnJ1q6xHDFg5jI8NKzuP4pbtyqkaAio23wWbSXH5Knj5UI7+MfM/lWIvXwlsIh+IAnxkH6GrH2j4ubgCLt1+tZ1jIH66UzjjSFMkrZ5mk1MwGJKXFboZ/MVDP0p6Db9eFaFVydRwmJzKGHMA1Psmd6yXstjJX3bHUbfr1rVoRVrMmqFdAaE1qpCGlcioCyve3Qnt1YyOlAYioTcQSlJlo7RTYog3EDgHs6l3BL/mCUyO1wZfia2+SVP7pJE90d9Ymy6m65QQpLZR0WdB6Vq+D+0DWOGPDZrhv5EDagWwqM3flnT+Ksql0PcZguUMScu4BO8d0zWuJS389FmuA7Ctz7A4dTYvZlBz3CpnmoRYHhJPrWT4dw971wW0Gp3PJV5se4fPauocOwSWUFtNlA15kkmWPeTrV9RJVtBG1yY/i/DjZuEalT8J7uh7x+VO4Tci2V6M3z7X3rZcSwQuqyN5HoeRrFYa21u5ctMIZSJ9I+w9a50Y7Zex1Mub52DntNWT7t+FJPITXO+JYjPcZj1geX9Zrc45v2b+BrmzGTNbHOXBL98BAG0fOTM/Ko5DMdt6Pw3CNdcIpjmT0A3J+nnU0YfIzKRBUxV0gXboDw9mtXEc/hO3MjYj51scH7Qe6abNzIDqVcMV8ABt5GKx9wTUlarLGpdmkZuPRqOKe2lxhl94on91XJ+dZS/wARUySHdurQB6CvPbBqJeGsCqrHFEeRsHib5bSPH8vChqI9aPZwzO2UeLHkB0qYmDgyfhBOvTx/XOrUBPkrUQ61Jw9sk9amHIrHSe7lyr2ZfwmPsRzoBGYbEm1cDjada6Bg7wdQRXP2IaZ32IrQezWMIHuydtvD9feoCSNYj0rtNR1NERqKZm0KopjrRRSNRKEZ1oc0a4aDFEBzi2P2R8fuKfwuyWYgUttf2ZHPUfOrPhVvLA5nX5GPrV8+TZFNdj2kwfNnT6Nx7H+7W21sKBc1Jbm45eEdPPrWhHxeX0P9a59avMjK6GGUyP691bnAYtbircXZhEdCJkfKk4ZXL9XYxrNKsb3R6ZPucqzHtBhst4XP30gnvU6fImtO2wqr4/Zm2G/dP1j8q0EE6MTxXGAIwA1286xOIQA6EazoNxBjX6+daridoy+ogHNqwGm58TqaoMThe1nXUTqOffpWlcALTgs207Ky7wepjdQO6Nf7UXiVt9GdI5T13jx2OtTfd5MrpBWABGuhEAad3zFC4hixcVbfwgEGdyOUAAd9BXZXjspHTmKfIqRibSKsq4PdImmWeHXXGYW2CfvtCJ/O8L86uWXJEuXSdFHnTbaa/rerZOHW1+K5njdbYJA/5XGAVfEBhT1xaJpbATvTVz43D8P8AjuoFgNsm0mXLlZt5E3D4L+DxbXoKJa4RdKszRbSJhuZ38SamcJwn7VXuAJbXttMzkBl2I+I9mdTpJEU7FYhsdcuFQyrMW1CjIEB1JJ7tZ6zVZzrsOODk6iZe++sARHmP7UMOwOorpmG9k7WSbg7XL+vXwp2B9m8O5LG2MqkqByZgYbyB07zPQUk9VFHRWgk12c1VufP61LwWJysGHn1recV9nLDKVW2qnkyiD5Rz8awnGOGPh25lTsYgz0I9a0xaiM+DLPo5Y1faNzhL+ZQetS0FZL2d4jp7snXcfcVqbbyKYEGqJYFNdabbfWjvEd9EzaIrCmZO6iMKSD0NEBl+IcKFt2eOwxLL/yA1B751joRUVFhvAoP/EVuMTgxcwWU7lpB74gfl51iWmTIg+8gjoQII8tqUzOTds72ilFxpLlPkltV17K4iLhtk6N2h/yAg+oPyqlNSOGXxbuo52DCe4HQn5zWUHUkx/PDdja9joo2A7jQOIpmtOP9v01p6t2lH/L7UuLuZUJ66etNOSStnmowbkortmYw2CRlJZQSwKyQJy6iJ8zXP8dhriOVaZBIzgTI5Ejwjeuo5YEd1Z3ifDfeQFbKxDKD0cdpfEEBh6Ujg1X9RuXT+x2tRov6SUe19zBm6wMdk98Hn4Ue3dJ3CejH71KxAuWyVuIhI5sgk+expq4k8rdofwD7AV1U01aZxJRlF01yOtY0r8LEd6Iltv51E07/ADDu0hMzfvOS7eZbT5UIOeqA8gqSfINNFXCXH+LPH+9sg/l/pVZTjHtloY8kuIoS/MD3t0D/AGjtEeCjQU3D38pDW7exBzudfLkD371ccP8AZZrjCBA6gQPU6nyrUYL2YsWmV4LupkFjpm5QO7el56yEeENw+H5GvVwUmH4U105MoGaDc1LARqtvMdzm7TdWgfgE67hXDUtKAFAIGveR9u78hErDYcKIAHefy6UDiGOyRbQZnb4VH1J5AVzsmeWSR1cWnjjikgPE8dDLbtwXdgo5hepI5wNY9YqfathECz8I3PPqT3k6+dQ+G8PFsm45D3GEFuSjfKnQTqeZO/dIx1yEPU1i2ukbRTbPOgaNN+dZzjFoG46QGURmlZB9dyJrUWhCjrFUHEEyidCzNu23TQbn6UYOmSatGS4xwxbSi7aGUqQTEwy7FonQjTQd9XvDL4dAw5j586FeUapcII1Hd3j60H2esm2r222VtD1EaH0jzmunp8japnF12FRalFcFyhowNCDUSKaRzWKRSa9KYabB60ShaW1/+sniD/5GsTxewRczfhZ5/iEAj0g+db7ApNhO4fnWeOFF2bR0JZyD0YAQfDQ+tY5I7kdDSZNk7fXkz5ppoly0UJRhDAwR30NxofA0oeiTNZ7O8UzAWnPbUEIf3hG3iI9PCrLiN+Tl/dBJ8SPy+tYM3CBmUwRqCNweRFat2JGYmSRJ8Tv4VXNlezaKR0kVm+Yv9e5NiQT41FxGDOXMm+jAaDtAyD51Jw5lB4mpSjs6dKRTp2OvlFViuHJdEtodDI2jcE9KqLvsqrNI+UVorLqIBHgZ5NqNdO8eVHuYdd9QecEqfkf1NXU5R6ZRxjJepGfw/svbG+b51bYPg1q3qEE9TFSThgTu0dzP9QaexVASeWuu/wDWqucpeSVGK4PXLyqs79AOflzpLbwJKsWO8DbuEx686S2uud4H7o6d/j9PWpKyeXmaD44Al5YBveNtlQdfibyGw+dewuDW3JElj8TnVjUmI8a8xqEs8KgYpszqvIMJo739So5CT5z+VCwFrTM25JPrpULpVyS2YbddKzt9/eXM5S8wExlW2oECdCzzMDpvV9fEgmqhUVXdV0GbPAAGj9vSBvnzxrJhhvlFN6THGcql+xztflniipR/kh3cMrK+W2oyBSWe+qrDTqOysmRykbVCwL9qJB8CGGnQjcd9WJuqLqEFJYMjSi3coYB1KpMzIWIBgXOQAmtxStbuSQ24Pat+6Jjnk2iOlNzxRxSTj+RXFkebG1Lt2v5LNafmpisDTgKaRyZC0lLlpMtQqXXDX/YoOo/Oqbhf+r5t96n8NvBlsRtkZvXaoXCh+0J8fvVBlcWE4/wz3i50HbUfzAfcVketdGrLe0XDch94g7JPaHRjsfA/XxrDLDyjq6DU/wCOX8FNgUzMgPUfLWtaLYy6VmuED9p5enKtY+kDl9a5+Z+o60QeAbRh0qYhhRVVgb0X3QzGUNPLUn5iB/MKtkG46a+tYyTQE0wN+yIB5HT1+H5x6mvYNbzCLaFgOZIA+Zo7KCCI0O46d4qI+KIu2pfKixm1KjMXJZt4kgAc+6tsGNZHTfQrqc7wxtK7Y97d0yHbKBuBo3ryr1jDjfKI5TqesknUnb0omIxXv7hdQQnKd3jY+H9KKFjcxWc0otpM2hJyipNV7BFQb7nqafmpFpYqoWJSHenTTHaAT5+lQKK2y+a9cA2CgVZW1iByAqn4B2ke4fxuT5AwPvVyjUWqYZcg8RopP6jnVa6W93GHESM18Ox0kwqLo2j8+sc6s7zdk1Qni7W/hzTH4TlPqVMTpt0Fa4pOMk0Y5sanCmrLfCSRFtrzL0w9hbCR0zkTFZ3jlkK+yqea/wCYF25/ENgfD+zbvFLjHVAxP773bn/u8fKo2OxF0HKSIkSqoir6KonlTTy7nX5YqsTirSr7EzAvKA+XpUsGqvh1yMy+B+x+1T1NN45XFM4+ohtyNEgUuWhBq9r1rQwK/wBkuI9k22OqAlf+JiR5GB591WvDVK3Ne4ecVh8DcKL7xdwRHluPAgxW3wF0OEcfjuT8hPzmsYStUdHVYtr3LyXfSm37KuCrCVYQfOndKe/U1oxRNrox/D8Kbdx1bdWK+Mc6uRdB08j9qjvfDsXiJP2gecAUG6+UhuR0OnpXFyeqbo9Rjb2JvvyLhxGIfWRlGnTRfr9quk+x+1ZzC3g+ILAzCgHlqJ/p6VosNt6/arZFSX0RXE7T+rHu2kg7bzt/Ss7exVu5cYNbYhsuV8zjJl1PYEBiTpJqw4niSqMAjOzEIEXRmZyFVRHUkV7inD2tuttiM8DMFMgMQDl2E7gwZ5Vtp4qMHN/RCmqk5ZY4l12yYjMQMoyrGnWOXhVfexgGJS1cxV2xb92SXtuVAuOxKl+WXLlknu1G9W1zT6VjeLW1uYm8HuKhVggz6ZsgyaE7Dsf+XjV9BjjOb3dJP35MPi+RxxxivLNrjOFYy3bNy3jTdIEqhs23z81hydAeu1V/BsTjb4eLeGJQiQ63EJDCQVZOyQdfTwqo4ViL1q2yW7tu5aIzNbz6rAk5T+EzGmxIqbf45jTbixaCI3bBBV3hgDseyJkGMv51u8E6cai+eG1VHHWdqnbXsnZY4zH3bKhr+ECqzhAUvqSWaYhSpJ260DjuLCWrkadpkB5mGKk/Ksthnu3cVaF53Ym4s5yTCq/bidAOy23SpHGsS1x7dtfiOscszknXuGprHU6ZY3FcX266Ot8M1E8m5ybaVVZfcEX9kg57/U1ZBoPkaj4FFtqtsHYRPU8z5/epF24iiWYDxNI9s7DIDK7azUdwy6gSTUkcStkkIC8bkbep0FEFwwWygRHQ1OiWVy2mIzFde4UzEYR594ySDE/2+dTr+NYyAIH7xMfKqvEXwxO7nePwirxspIZhcK7sHEbMDvqeUAA/oUW6GUkEbaHxiabbxjIyk85EDbaR9/Wn8SaQrqSAdGA2PSfnTWDLKMlHwxDV6aEouflIEtyi5qhK9L7zvro0cIzlsfsv11rQeyWKlvdMdjnX/sPv61R2v9Py+9DwFwq+ZSQRBBHUGk4yp2ehy41OKX7o6kG0BqPxVWa06q2UwuvcWg/KgcNx4v2ww0IIDL0IMz4HlUvEKSlwDfLp4gEit5eqDo48YuGRKXhoxicIuK3+u48D9jpUg4bEgEBkcRs41+Rqf/nEVcxH1JNPw+KDrMETyMTXJc5ds9IoLwV2FXJdRWjMUJMbTJJjuGgrUW9Ao/WutZ3ilv8Ab2SATuJGgHaVtfT61or5iPEVMjtJ+wIKm17hrPDlyf5l57GJw4UcoF+0C3j2mXzNN4xhHd1u6fgLbzJcvP8ALA/hFaU2QuBCkbqrfxMwYecn5VT8UeFC/wDEfyrH/b505kWzCl7fk5OKTyaly9/sivzSSaczRvcfwNxyP5WJHyobGPKqXjuP9yk7u+07AdYpHDjlkkox7Z1M7hGDlPpE2+lknti2x/32rP1VVY+tNThVsiVtoJ527t63/wB3HyrNWcOuUXbji47AsLRIkiGkmZ1CjNEDlqTpRMFxjI6ZUCrlVWVZhiJGbUmWOmv6PYlocsYembtePBw46rT5J1LGkn5Lq/w0W5vA3C6oyjPcV1XMGUmcikxmYjvqh4JeVsSzseuUHy+cRV1xriIZciagxJ2HWP11rMWLMS3TQnmrLoreEb1z1KUk3N89HXx4I4uILi7ZujcG4nQVGfhcqXuEltwvIdBWaHEb9sZoLkfiQgj03Hgabwr2hxF/Ei2+iMGlYHJSRJ8Ryqiwum0ayzRtJ+fY0OdVG8KATCzKwJk6abVPTVSBlyEAggzmnYk1Aw1v3ge2ZjUHvBkEd1D4PaZC2Hczk1QncoScsgc17SnwFZ1abLN1JLw/yGxGFOaYJnaToP7aa0N8AwB6n0FWQzro4kdRqR4iouOvkwBvGp5d1RNhZGxODAQJuRrM+lQcPigbZtsDPLTWeVOOIJaZ120EwR8h86j2bihpZcw6Eka9ZEU3p8alKn9RDWZnCFrzwAmvZq9dPaPLWab511DglWjfs/L70LBntHwot62VHuzuGjy3n0ig4X4j4Vzz0idtUXPDMc1q4HXbZh+8OlbzB3FdQ6GVYAjwgDXv3rmymrr2a4x7oZHkoZI7m1+R+vnV4T29mOs03zFuj2vuWOLwFouVAZspzEEmAToVXuGhimqrCSoGWR8Oo8+Yp6SxN0HtE7cj+VGSCCyyJ3Hfz0rnZZ3JtdD+GLjBKXLB8QtnPbaDE6npPX5VaYk6DxFR1fMuo5CPWpOI+9ZuV0iyXk2XGxFjKOqL6EflWb4w8uR0J9Zj7VpuL62/4k/9h+dZHGPmuE9/5f1p/WOo0cb4arnf7WRisnuFUuKv21x1lrklAICZWOfMShHSIYme4itDkEVnuNYHMU01QkgjeDGg0gnciaw0WSMMqb+h0NbjeTC4rvsLiP8AK5bZAQut1SczC0/u1ViglsphR7sEGO3m1nWmY/Ai3auXLWRSHtRkhwEuBhnDGWALqQOUbE1RvhP2hK27rLLaGFeJIUyJ1ywT36bVZY7Es+hUqOySGylyQCBLQGIEnQ9T3R3MssajcpX7X2cLTwzOdQjXvRGvXM2URoqgecdo+JMmpXDML2bjHuPy1oWHsEkCrm+Rbt5ObCT4bCuBOd8HpoRpFDjMGFUkHKhEzGx6TvUf2ZtH3+fcKpOvU6fSauwk2mkTA2qP7N3Fl50ggSekMR9T86spvaysoJyRb8OtwXbmfpRMZay3Ld0biUbvV40/nCn1ph4jh7ZMXBruBLfTahvxK3cUgGRrqASayVrkk6lwWbP0E1WcVw+k/u66dKSzxPkeXp+vyqYbgceXyqdMlWqMy7DN2RHOhYgazyNWb2MrskRpofnQDbVhlJ7/AAPP9d1M4Z7ZJieox74OP/WVdw0ynXBAnvIoeauqpKXJ5+cJRdMtfaPA6G4g1QKG75nXyEDz7qzGFWGPhXQL+tu53n/qKwOG0dvH70rkVOzr6HI5Kn4JCCpHClB1YSAdvvQBWh9n7KhNhrv30tkdRs6j5ZY2gPdyvWaiPaIYMXPa0CnaYjly8RUrDaA+dQ+J6FfOk48s0k6iSLV2LigHfLI5A6THmK0OAwZuXFX8KnM3gOXmaweBJLoxZiWWTLEiezqATA8q6d7LfG/gtbxxL5iixLJnbwSlHiidi7MW2iQBBIG3xDltPOe6sjcugDMeevqZ+9bbi+li5H7rfQVg0/D3Kv0rTWKqQv8AC+bf0Ea43xMGP+1RJ8zypf8A5CzEXFZDyzgifA7Gltb+dKtsMWVhK9DtSSOrIgYrFMy5UuIiciXGZvAbxyqInCzOp1q1wuDtowK21BncAUKdT4n6mruRIokcP4eF1NCxKZ7hPIaelS8G5ytrUNTNUD5FyjXoZB+lVtvhsWZHxFj4yNtucfap77mptvQKO4nz6/OipNFmVmAt4hFm5dAHQgNA6TuTUhsIlz8LLJmYKzNWbKJ2HoKZiToPGi22ylkFeD2w25I28KkJhXTS2yx0YEx4EflUe7cIeAdJmN+nWii6SIJ38uvSoVsr+KsbeR3IJmCRoCPCs4MSxJy7n5VO9qW/aKOW8eQqBhNAfD86axxW2xXI7m0efRY7xQZp1zYfrpQq6OBek42r/uH/2Q==" height="150px" widht="150px">
+                   <p>Kalpana Chawla, PhD, was an engineer, pilot, and astronaut who spent more than 30 days in space over two Space Shuttle missions. Chawla was born in Karnal, India, and was fascinated by flight since her childhood.Kalpana Chawla (March 17, 1962 – February 1, 2003) was born in Karnal, India.  </p>
+                   <button type="button" class="btn btn-outline-warning"><a href="https://science.nasa.gov/resource/first-image-of-a-black-hole/">Know More</a></button>
+            </div>
+            <div class="col-4">
+                <img class="centerimg" src="https://cdn.sanity.io/images/7p2whiua/production/38e980aa07acdacf9279b5894d7e897835210a0a-722x515.jpg?w=900&auto=format" height="150px" widht="150px">
+                   <p> Pragyan is a lunar rover developed by the Indian Space Research Organization (ISRO). Part of the Chandrayaan-3 lunar mission, it successfully landed near the lunar south pole on 23 August 2023. It's now exploring the moon using cameras and scientific instruments.</p>
+                   <button type="button" class="btn btn-outline-warning"><a href="https://science.nasa.gov/resource/first-image-of-a-black-hole/">Know More</a></button>
+            </div>
+            <div class="col-4">
+                <img class="centerimg" src="https://c4.wallpaperflare.com/wallpaper/468/1005/275/asteroid-space-3d-planet-wallpaper-preview.jpg"height="150px" widht="150px">
+                   
+                <p> Asteroids, sometimes called minor planets, are rocky, airless remnants left over from the early formation of our solar system about 4.6 billion years ago. Most of this ancient space rubble can be found orbiting the Sun between Mars and Jupiter within the main asteroid belt.</p>
+                <button type="button" class="btn btn-outline-warning"><a href="https://science.nasa.gov/resource/first-image-of-a-black-hole/">Know More</a></button>
+            </div>
+
+        </div>
+     </div>
+     <br>
+     
+     <hr style="color:white">
+     <footer>
+        <div id="footer" >
+              <div class="common"> 
+                  <h5>About</h5>
+                  <ul>
+                      <li href="#">Contact us</li>
+                      <li href="#">About us</li>
+                      <li href="#">Career </li>
+                      <li href="#">Galaxy Stories</li>
+                      <li href="#">Press</li>
+                  </ul>
+              </div>
+              <div class="common">
+                  <h5>News & Event</h5>
+                  <ul>
+                      <li href="#">Solar System</li>
+                      <li href="#">The Universe</li>
+                      <li href="#">Earth Climate</li>
+                      <li href="#">Human Space</li>
+                      <li href="#">Technology</li>
+                  </ul>
+              </div>
+              <div class="common">
+                  <h5>Social</h5>
+                  <ul>
+                      <li href="#">Instagram</li>
+                      <li href="#">Facebook</li>
+                      <li href="#">Article</li>
+                      <li href="#">Whatsapp</li>
+                      <li href="#">Youtube</li>
+                  </ul>
+                  
+              </div>
+        </div>
+      </footer>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

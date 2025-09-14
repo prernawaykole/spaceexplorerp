@@ -1,231 +1,2461 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAMAAAB61OwbAAAAWlBMVEVHcEzzhCD2giDwhSX1hB70hCD2hR0Gh9EGic8Hhc33hR8Gis8Gic4EidGKjW0Dis8HhtMEidD0hBsDjdUFis/0hSDyhCXzhSLtiCnphyfzgyXwhCD6gRr2hB6il3V3AAAAHnRSTlMAOsZr4fHYcFka//6ltQdBK8tb5ZScGHZPLL6t44rtTjSGAAAA+klEQVR4AYXOBQKEIABE0bEJ6TLvf8ztDni2fgF8qlBQI69pkdf1+G0gFCcN+xNQzkcxEnT/AkilDR8sOwU53TngbtAUPzXsFEhvBs7FnwFuU+hB/x6gDdk1dCw2uSCxClMuYAmYM0EKAOL/QC44Yy3+sBLTCrQt9J8RzlHC0sJQvFqXeqvrfm1Pp4VVYVNCCOeMuAHCvs1Vi36W3dwhbRilHwzxymsvhEJa16aausQm21cd7AY+OCfgyOCdJgJxn3vb29jPYY8dqlMgJTXKacCpU4B92WXcsc8IMSBu8FqIAZ4C5HwDNBZPskbBgoIVBTsKLAoqFES8OwKUOQ34yOORCAAAAABJRU5ErkJggg==">
-    <title>Bootstrap demo</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Explorer - Journey to the Stars</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frijole&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif+Caption:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        .frontpage
-        {
-            height:500px;
-            width auto;
-            border: 3px solid black;
-            background-image: url(./img1.jpg);
-            background-position:center center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            color:white;
+        /* Theme Variables */
+        [data-theme="dark"] {
+            --primary-color: #0B1426;
+            --secondary-color: #1a237e;
+            --accent-color:  #9400cd;
+            --text-light: #ffffff;
+            --text-muted: #b0bec5;
+            --text-dark: #ffffff;
+            --card-bg: rgba(255,255,255,0.1);
+            --card-border: rgba(255,255,255,0.2);
+            --navbar-bg: rgba(11, 20, 38, 0.95);
+            --footer-bg: #160020;
+            --form-bg: rgba(255,255,255,0.1);
+            --form-border: rgba(255,255,255,0.3);
+            --form-focus-bg: rgba(255,255,255,0.15);
+            --gradient-bg: linear-gradient(135deg, #67009a 0%, #440065 50%, #240032 100%);
+            --hero-overlay: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
+        }
+
+        [data-theme="light"] {
+            --primary-color: #f5f7fa;
+            --secondary-color: #e3f2fd;
+            --accent-color: #1976d2;
+            --text-light: #212529;
+            --text-muted: #6c757d;
+            --text-dark: #212529;
+            --card-bg: rgba(255,255,255,0.9);
+            --card-border: rgba(0,0,0,0.125);
+            --navbar-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: rgba(248, 249, 250, 0.95);
+            --form-bg: rgba(255,255,255,0.9);
+            --form-border: rgba(0,0,0,0.3);
+            --form-focus-bg: rgba(255,255,255,1);
+            --gradient-bg: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 50%, #bbdefb 100%);
+            --hero-overlay: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--primary-color);
+            color: var(--text-light);
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--gradient-bg);
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, var(--text-light), transparent),
+                radial-gradient(2px 2px at 40px 70px, var(--text-muted), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--text-light), transparent),
+                radial-gradient(1px 1px at 130px 80px, var(--text-muted), transparent);
+            animation: sparkle 10s linear infinite;
+            opacity: 0.8;
+        }
+
+        [data-theme="light"] .stars {
+            opacity: 0.3;
+        }
+
+        @keyframes sparkle {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-100vh); }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+
+        .theme-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--accent-color);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .theme-switch::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        [data-theme="light"] .theme-switch::before {
+            transform: translateX(30px);
+        }
+
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-icon.sun {
+            right: 6px;
+            color: #ffd700;
+            opacity: 0;
+        }
+
+        .theme-icon.moon {
+            left: 6px;
+            color: #ffffff;
+            opacity: 1;
+        }
+
+        [data-theme="light"] .theme-icon.sun {
+            opacity: 1;
+        }
+
+        [data-theme="light"] .theme-icon.moon {
+            opacity: 0;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--navbar-bg) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 1rem 0;
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="light"] .navbar {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent-color), #00bcd4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-light) !important;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #00bcd4 !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00bcd4;
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-toggler {
+            border-color: var(--text-light);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        [data-theme="light"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2833, 37, 41, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Page Content */
+        .page-content {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-                }
-                h1{
-                  
-                    padding-top: 90px;
-                }
-                .imagealigncenter
-                {
-                    display: flex;
-                 justify-content: center;
-                }
-               
-                .common 
-     {
-        padding-left: 140px;
-           display: inline-block;
-          width:33%;
-          height:100px;
-          color: white;
-          
-     }
-     li:hover {
-  background-color: rgb(123, 219, 234);
-  color:black;
-}
-     p{
-        color:white;
-        text-align: center;
-        text-align: justify;
-      text-justify: inter-word;
-       font-style:italic;
-        
-     }
-     .centerimg
-     {
-        border-radius: 10px;
-        padding-left: 70px;
-        
-     }
-     .table
-     {
-        display:table;
-        width:100%;
-     }
-     .table1
-     {
-        display:table-row;
-        margin-bottom: 15px;
-     }
-     .table3
-     {
-        display: table-cell;
-                padding-right: 5px; 
-     }
-  
+            background: var(--hero-overlay), 
+                        url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover;
+            transition: background 0.3s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            animation: fadeInUp 1s ease;
+             font-family: "Frijole", system-ui;
+        font-weight: 400;
+      font-style: normal;
+           /* // color: var(--text-light); */
+        }
+
+        h1{
     
-
-        </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
-  <body style="background-color:black;">
-    <header>
-        <nav class="navbar navbar-expand-lg bg-black" data-bs-theme="dark">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Space Explore</a>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Credits</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Share</a>
-                  </li>
+        font-family: "PT Serif Caption", serif;
+        font-weight: 400;
+        font-style: normal;
                 
-                  
-                </ul>
-                <form class="d-flex" role="search">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                       Subscribe
-                      </button>
-                </form>
-              </div>
-            </div>
-          </nav>
-      </header>
-     <div class="frontpage">
-         
-           <h1 >SPACE ADVISOR</h1>
-           <div>"When you look at the stars and the galaxy, you feel that you are not just from any particular piece of land, but from the solar system."
 
-            - Kalpana Chawla</div>
-         
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+            animation: fadeInUp 1s ease 0.3s both;
+            color: var(--text-light);
+        }
+
+        .hero-btn {
+            background: linear-gradient(45deg, var(--accent-color), #9400cd);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards */
+        .space-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            height: 100%;
+            color: var(--text-dark);
+        }
+
+        .space-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        [data-theme="light"] .space-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .space-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .space-card h3 {
+            /* color: var(--accent-color); */
+            margin-bottom: 1rem;
+        }
+
+        /* Mission Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 55%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            left: -60px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            right: -60px;
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            color: var(--text-dark);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            background: var(--form-bg);
+            border: 1px solid var(--form-border);
+            color: var(--text-dark);
+            border-radius: 10px;
+        }
+
+        .form-control:focus {
+            background: var(--form-focus-bg);
+            border-color: var(--accent-color);
+            color: var(--text-dark);
+            box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--footer-bg);
+            padding: 3rem 0;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-dark);
+        }
+
+        .footer h5 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer ul li {
+            margin: 0.5rem 0;
+            transition: color 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .footer ul li:hover {
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal-content {
+            background: var(--card-bg) !important;
+            border: 1px solid var(--card-border) !important;
+            backdrop-filter: blur(10px);
+            color: var(--text-dark);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--card-border);
+        }
+
+        .btn-close {
+            filter: var(--bs-btn-close-white-filter);
+        }
+
+        [data-theme="light"] .btn-close {
+            filter: none;
+        }
+
+        /* Buttons */
+        .btn-outline-light {
+            border-color: var(--text-light);
+            color: var(--text-light);
+        }
+
+        .btn-outline-light:hover {
+            background-color: var(--text-light);
+            border-color: var(--text-light);
+            color: var(--primary-color);
+        }
+
+        [data-theme="light"] .btn-outline-light {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        [data-theme="light"] .btn-outline-light:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-outline-info {
+            border-color: #00bcd4;
+            color: #00bcd4;
+        }
+
+        .btn-outline-info:hover {
+            background-color: #00bcd4;
+            border-color: #00bcd4;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .timeline::before {
+                left: 30px;
+            }
+            .timeline-item {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+            .timeline-item::before {
+                left: -60px !important;
+            }
+            
+            .theme-toggle {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+
+        /* Carousel Custom Styles */
+        .space-carousel {
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .carousel-item img {
+            height: 550px;
+            object-fit: cover;
+        }
+
+        /* Explore Section */
+        .explore-section {
+            padding: 5rem 0;
+        }
+
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid var(--card-border);
+            border-radius: 50%;
+            border-top: 4px solid var(--accent-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Display and headings */
+        .display-4 {
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-dark);
+        }
+
+        .lead {
+            color: var(--text-dark);
+        }
+
+        p {
+            color: var(--text-dark);
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .text-info {
+            color: #00bcd4 !important;
+        }
+        .solartext{
+            font-size: 16px;
+        }
+ .theme-toggle {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  .theme-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: #2c2c2c;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .theme-btn:hover {
+    transform: scale(1.1);
+  }
+
+  /* Dark Theme */
+  [data-theme="dark"] {
+    background: #121212;
+    color: #eee;
+  }
+
+  /* Light Theme */
+  [data-theme="light"] {
+    background: #ffffff;
+    color: #333;
+  }
+
+  .back-btn{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="stars"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('home')">
+                <i class="fas fa-rocket me-2"></i>Space Explorer
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('home')">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('about')">
+                            <i class="fas fa-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('missions')">
+                            <i class="fas fa-space-shuttle me-1 " style="transform: rotate(-90deg);" ></i>Missions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('explore')">
+                            <i class="fa-solid fa-meteor me-1"></i>Explore
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" hresf="#" onclick="showPage('gallery')">
+                            <i class="fas fa-images me-1"></i>Gallery
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('news')">
+                            <i class="fas fa-newspaper me-1"></i>News
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('contact')">
+                            <i class="fas fa-envelope me-1"></i>Contact
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Theme Toggle -->
+                <!-- <div class="theme-toggle">
+                    <button class="theme-switch" onclick="toggleTheme()">
+                        <i class="fas fa-moon theme-icon moon"></i>
+                        <i class="fas fa-sun theme-icon sun"></i>
+                    </button>
+                </div> -->
+          <div class="theme-toggle">
+  <button id="themeBtn" class="theme-btn" onclick="toggleTheme()">
+    <i id="themeIcon" class="fas fa-sun"></i>
+  </button>
+</div>
+
+            </div>
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Subscribe For NewsLetter</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="table"action="">
-                        <p class="table1">
-                            <label class="table3"for="">Email</label>
-                            <input type="email">
-                        </p>
-                        <p>
-                            <label class="table3" for="">Mobile No.</label>
-                            <input type="text">
-                        </p>
-                    </form>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page-content active">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>SPACE EXPLORER</h1>
+                <p>"When you look at the stars and the galaxy, you feel that you are not just from any particular piece of land, but from the solar system." - Kalpana Chawla</p>
+                <a href="#" class="hero-btn" onclick="showPage('explore')">Start Exploring</a>
+            </div>
+        </section>
+
+        <!-- Featured Content -->
+        <div class="container my-5">
+            <!-- Carousel -->
+            <div id="spaceCarousel" class="carousel slide space-carousel" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://cdn.thewire.in/wp-content/uploads/2019/03/28083646/Mercury_planet.jpg" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+
+                     <div class="carousel-item active">
+                        <img src="https://cdn.mos.cms.futurecdn.net/RifjtkFLBEFgzkZqWEh69P-970-80.jpg.webp" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+                     <div class="carousel-item active">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/438/382/396/space-earth-landscapes-planet-wallpaper-preview.jpg
+" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+
+                     <div class="carousel-item active">
+                        <img src="https://t3.ftcdn.net/jpg/01/46/08/18/360_F_146081893_wF3i2pmbUscwgIf5XliB3C0PiGaNLLN8.jpg
+" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+
+
+                    <div class="carousel-item active">
+                        <img src=" https://media.istockphoto.com/id/1331092613/photo/jupiter-planet-3d-render-illustration-high-detailed-surface-features.jpg?s=612x612&w=0&k=20&c=JHTXodXk_Syg5w-CZc4G3hYDcJSgnDGak9jbMHjCwu0=
+" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+
                     
+                    <div class="carousel-item active">
+                        <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80
+" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+
+
+                      
+                    <div class="carousel-item active">
+                        <img src="https://t3.ftcdn.net/jpg/00/33/48/46/360_F_33484692_nK6mx4zVg2FzGu6GOklPshaOvATNtHUX.jpg
+" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+                   
+                      <div class="carousel-item active">
+                        <img src="https://orbitaltoday.com/wp-content/uploads/2022/12/Neptune-featureIMG.jpg
+" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+
+                     <div class="carousel-item active">
+                        <img src="https://cdn.mos.cms.futurecdn.net/DoZSMXF87kCuzbymsuEFHo-1200-80.jpg
+" class="d-block w-100" alt="Mars Exploration">
+                    </div>
+                  
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                <button class="carousel-control-prev" type="button" data-bs-target="#spaceCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#spaceCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <!-- Featured Cards -->
+            <div class="row my-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="space-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7SUJ_krQxZLVVzjo8vqTrg9vi22c9tAFaFw&s"  style="object-fit: contain;" alt="Kalpana Chawla">
+                        <h3><i class="fas fa-user-astronaut me-2"></i>Kalpana Chawla</h3>
+                        <p>Kalpana Chawla, PhD, was an engineer, pilot, and astronaut who spent more than 30 days in space over two Space Shuttle missions. Born in Karnal, India, she was fascinated by flight since childhood.</p>
+                        <button class="btn btn-outline-light" onclick="showPage('about')">Learn More</button>
+                    </div>
                 </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="space-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm8O-Q2rrmuHUw5qTfy_TU04fFsSzKMrO55Q&s" alt="Pragyan Rover">
+                        <h3><i class="fas fa-robot me-2"></i>Pragyan Rover</h3>
+                        <p>Pragyan is a lunar rover developed by ISRO. Part of the Chandrayaan-3 mission, it successfully landed near the lunar south pole on 23 August 2023, exploring the moon with cameras and scientific instruments.</p>
+                        <button class="btn btn-outline-light" onclick="showPage('missions')">Discover Missions</button>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="space-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpws2q3GYSEG_iTlk7tuI21twc0sFxJ1w64w&s" alt="Asteroids">
+                        <h3><i class="fas fa-meteor me-2"></i>Asteroids</h3>
+                        <p>Asteroids are rocky, airless remnants from the early formation of our solar system about 4.6 billion years ago. Most of this ancient space rubble orbits the Sun between Mars and Jupiter.</p>
+                        <button class="btn btn-outline-light" onclick="showPage('explore')">Explore Space</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page-content">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 mb-4">About Space Explorer</h1>
+                    <p class="lead">We are passionate about bringing the wonders of space exploration to everyone. Our mission is to educate, inspire, and ignite curiosity about the cosmos.</p>
+                    <p>Founded by space enthusiasts, Space Explorer serves as your gateway to understanding the universe. From the latest space missions to the most distant galaxies, we cover it all.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-rocket fa-2x text-info me-3"></i>
+                                <div>
+                                    <h5>Latest Missions</h5>
+                                    <p>Stay updated with current space missions</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-satellite fa-2x text-info me-3"></i>
+                                <div>
+                                    <h5>Space Technology</h5>
+                                    <p>Learn about cutting-edge space tech</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-globe fa-2x text-info me-3"></i>
+                                <div>
+                                    <h5>Global Perspective</h5>
+                                    <p>International space collaborations</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-users fa-2x text-info me-3"></i>
+                                <div>
+                                    <h5>Community</h5>
+                                    <p>Join fellow space enthusiasts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="img-fluid rounded" alt="About Space Explorer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MISSIONS PAGE -->
+    <div id="missions" class="page-content">
+        <div class="container py-5">
+            <h1 class="display-4 text-center mb-5">Space Missions Timeline</h1>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Chandrayaan-3 (2023)</h4>
+                        <p>India's successful lunar south pole mission with Pragyan rover landing.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>James Webb Space Telescope (2021)</h4>
+                        <p>Revolutionary space telescope providing unprecedented views of the universe.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Mars Perseverance (2021)</h4>
+                        <p>NASA's rover searching for signs of ancient microbial life on Mars.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>SpaceX Crew Dragon (2020)</h4>
+                        <p>First commercial crew mission to the International Space Station.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Parker Solar Probe (2018)</h4>
+                        <p>NASA's mission to "touch" the Sun and study its corona.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPLORE PAGE -->
+    <div id="explore" class="page-content">
+        <div class="container py-5">
+            <h1 class="display-4 text-center mb-5">Explore the Universe</h1>
+            
+            <div class="explore-grid">
+                <div class="space-card" onclick="showPage('solarSystem')">
+                    <img src="https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL291dGVyLXBsYW5ldHMuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo4Mjh9LCJ0b0Zvcm1hdCI6ImF2aWYifX0=" alt="Solar System">
+                    <h3>Solar System</h3>
+                    <p>Discover our cosmic neighborhood with eight planets, moons, asteroids, and comets orbiting our Sun.</p>
+                </div>
+                
+                <div class="space-card"  onclick="showPage('exoplanets')">
+                    <img src="https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Exoplanets">
+                    <h3>Exoplanets</h3>
+                    <p>Explore worlds beyond our solar system and the search for potentially habitable planets.</p>
+                </div>
+                
+                <div class="space-card" onclick="showPage('blackHole')">
+                    <img src="https://media.istockphoto.com/id/1688878831/photo/3d-render-animation-and-illustration-the-largest-known-supermassive-black-hole-its-science.jpg?s=612x612&w=0&k=20&c=LGoJG3b9HYm3gjedxphaXImVaiy5VP0K5DRlfpA1dF4=" alt="Black Holes">
+                    <h3>Black Holes</h3>
+                    <p>Journey into the most mysterious objects in the universe where gravity is so strong that nothing can escape.</p>
+                </div>
+                
+                <div class="space-card" onclick="showPage('galaxiescard')">
+                    <img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Galaxies">
+                    <h3>Galaxies</h3>
+                    <p>Explore the vast collections of stars, gas, and dust that make up the building blocks of our universe.</p>
+                </div>
+                
+                <div class="space-card"   onclick="showPage('spacestations')" >
+                    <img src="https://plus.unsplash.com/premium_photo-1722018576685-45a415a4ff67?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Space Stations">
+                    <h3>Space Stations</h3>
+                    <p>Learn about humanity's outposts in space and the incredible research conducted in microgravity.</p>
+                </div>
+                
+                <div class="space-card" onclick="showPage('marsexploration')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLV4L9vOkOSJEHM1_cI5VYYPKqVgynL1ddZw&s" alt="Mars">
+                    <h3>Mars Exploration</h3>
+                    <p>Follow humanity's quest to explore and potentially colonize the Red Planet.</p>
+                </div>
+
+                 <div class="space-card" onclick="showPage('earthformation')">
+                    <img src=" https://t3.ftcdn.net/jpg/01/94/08/00/240_F_194080021_Qqc5gJLp4uNQpSStlbPdbQdeYUXt7PHN.jpg" alt="Mars">
+                    <h3>Earth</h3>
+                    <p>We find that we live on an insignificant planet of a humdrum star lost in a galaxy tucked away in some forgotten corner of a universe in which there are far more galaxies than people.</p>
+                </div>
+
+                  <div class="space-card" onclick="showPage('galaxiessecrets')">
+                    <img src="https://scitechdaily.com/images/Galaxy-Gravity-Dark-Matter-Art.jpg" alt="Mars">
+                    <h3>Galaxies Secrets</h3>
+                    <p>Galaxies are vast cosmic cities of stars, planets, gas, and dark matter, 
+    yet they hold many secrets. Astronomers are still uncovering how they formed, 
+    why supermassive black holes sit at their centers, and the role of mysterious .</p>
+                  </div>
+
+
+               
+            </div>
+        </div>
+    </div>
+
+   <div id="solarSystem" class="page-content">
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <h1 class="display-4 mb-4 text-center">Solar System</h1>
+      <p class="lead text-center">
+        The Solar System formed about 4.6 billion years ago from a giant cloud of gas and dust. 
+        At its center lies the Sun, a medium-sized star that contains almost all of the system’s mass. 
+        Surrounding it are planets, dwarf planets, moons, asteroids, comets, and meteoroids—all held together by gravity. 
+        The Solar System is part of the Milky Way Galaxy, orbiting around its center once every 225–250 million years.
+      </p>
+
+      <div class="col-lg-9" style="margin-bottom: 5px;">
+        <div class="row mt-4">
+          <!-- Sun -->
+          <div class="col-lg-6 " style="width: 100%;">
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-sun fa-2x text-warning me-3"></i>
+              <div class="solartext">
+                <h5>The Sun</h5>
+                <p >
+                  The Sun is a G-type main-sequence star that provides heat and light, making life possible on Earth. 
+                  It is made mainly of hydrogen and helium, producing energy through nuclear fusion.
+                  <br><strong>Diameter:</strong> 1.39 million km <br>
+                  <strong>Mass:</strong> 99.86% of the Solar System <br>
+                  <strong>Age:</strong> ~4.6 billion years
+                </p>
               </div>
             </div>
           </div>
-     <div class="container">
-        
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                    
-                  <div class="carousel-item active">
-                    <img class="imagealigncenter"src="/img6.png" class="d-block  w-100"  style="border-radius:30px; height: 180px; " >
-                  </div>
-                  <div class="carousel-item">
-                    <img class="imagealigncenter" src="./img4.jpg" class="d-block w-100 " style="border-radius:30px; height: 180px; " >
-                  </div>
-                  <div class="carousel-item">
-                    <img class="imagealigncenter" src="/img5.jpg" class="d-block  w-100 "  style="border-radius:30px; height: 180px; ">
-                  </div>
-                  <div class="carousel-item">
-                    <img class="imagealigncenter" src="/img3.jpg" class="d-block w-100 "  style="border-radius:30px; height: 180px; ">
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
-        
-        <br>
-     
-        <hr style="color:white">
-        <div class="row">
-            <div class="col-4">
-                   <img class="centerimg"src="data:image/jpeg;base64,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" height="150px" widht="150px">
-                   <p>Kalpana Chawla, PhD, was an engineer, pilot, and astronaut who spent more than 30 days in space over two Space Shuttle missions. Chawla was born in Karnal, India, and was fascinated by flight since her childhood.Kalpana Chawla (March 17, 1962 – February 1, 2003) was born in Karnal, India.  </p>
-                   <button type="button" class="btn btn-outline-warning"><a href="https://science.nasa.gov/resource/first-image-of-a-black-hole/">Know More</a></button>
-            </div>
-            <div class="col-4">
-                <img class="centerimg" src="https://cdn.sanity.io/images/7p2whiua/production/38e980aa07acdacf9279b5894d7e897835210a0a-722x515.jpg?w=900&auto=format" height="150px" widht="150px">
-                   <p> Pragyan is a lunar rover developed by the Indian Space Research Organization (ISRO). Part of the Chandrayaan-3 lunar mission, it successfully landed near the lunar south pole on 23 August 2023. It's now exploring the moon using cameras and scientific instruments.</p>
-                   <button type="button" class="btn btn-outline-warning"><a href="https://science.nasa.gov/resource/first-image-of-a-black-hole/">Know More</a></button>
-            </div>
-            <div class="col-4">
-                <img class="centerimg" src="https://c4.wallpaperflare.com/wallpaper/468/1005/275/asteroid-space-3d-planet-wallpaper-preview.jpg"height="150px" widht="150px">
-                   
-                <p> Asteroids, sometimes called minor planets, are rocky, airless remnants left over from the early formation of our solar system about 4.6 billion years ago. Most of this ancient space rubble can be found orbiting the Sun between Mars and Jupiter within the main asteroid belt.</p>
-                <button type="button" class="btn btn-outline-warning"><a href="https://science.nasa.gov/resource/first-image-of-a-black-hole/">Know More</a></button>
-            </div>
+          </div>
+          </div>
+           <div class="col-lg-3 text-center" style="margin-bottom: 5px;">
+        <img 
+          src="https://cdn.hswstatic.com/gif/gettyimages-1406174121.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Solar System">
+      </div>
 
+          <!-- Inner Planets -->
+             <div class="col-lg-9 " style="margin-bottom: 5px;">
+        <div class="row mt-4">
+          <div class="col-md-6" style="width: 100%;" >
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-globe fa-2x text-primary me-3"></i>
+              <div class="solartext" >
+                <h5>Inner Planets</h5>
+                <p >
+                  Mercury, Venus, Earth, and Mars are rocky planets, located closest to the Sun.
+                  <br><strong>Mercury:</strong> Smallest, extreme temperatures. <br>
+                  <strong>Venus:</strong> Hottest, thick toxic atmosphere. <br>
+                  <strong>Earth:</strong> Our home, only known planet with life. <br>
+                  <strong>Mars:</strong> The “Red Planet,” with evidence of ancient water.
+                </p>
+              </div>
+            </div>
+          </div>
+           </div>
+          </div>
+           <div class="col-lg-3 text-center " style="margin-bottom: 5px;">
+        <img 
+          src="https://media.istockphoto.com/id/471410645/photo/inner-solar-system-planets.jpg?s=612x612&w=0&k=20&c=SO20Fg2erSh7auDN17oWZLnKx5NrHF4OPRZZfFCdCHo=" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Solar System">
+      </div>
+
+          <!-- Outer Planets -->
+               <div class="col-lg-9" style="margin-bottom: 5px;">
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-ring fa-2x text-success me-3"></i>
+              <div class="solartext">
+                <h5>Outer Planets</h5>
+                <p>
+                  Jupiter, Saturn, Uranus, and Neptune are giant planets made mostly of gas and ice.
+                  <br><strong>Jupiter:</strong> Largest planet, Great Red Spot storm. <br>
+                  <strong>Saturn:</strong> Famous for its bright ring system. <br>
+                  <strong>Uranus:</strong> Rotates on its side, bluish color from methane. <br>
+                  <strong>Neptune:</strong> Farthest, strong winds and storms.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-     </div>
-     <br>
+          </div>
+           <div class="col-lg-3 text-center" style="margin-bottom: 5px;">
+        <img 
+          src="https://www.timeforkids.com/wp-content/uploads/2018/08/Planets-HERO.jpg?w=1024" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Solar System">
+      </div>
+
+          <!-- Dwarf Planets -->
+        <div class="col-lg-9" style="margin-bottom: 5px;">
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-star-half-alt fa-2x text-info me-3"></i>
+              <div class="solartext">
+                <h5>Dwarf Planets</h5>
+                <p>
+                  Smaller than regular planets but orbiting the Sun. 
+                  <br><strong>Pluto:</strong> Once the ninth planet, now classified as a dwarf planet. <br>
+                  <strong>Ceres:</strong> Found in the asteroid belt. <br>
+                  <strong>Eris, Haumea, Makemake:</strong> Located in the Kuiper Belt.
+                </p>
+              </div>
+            </div>
+          </div>
+            </div>
+        </div>
+           <div class="col-lg-3 text-center" style="margin-bottom: 5px;">
+        <img 
+          src="https://cdn.mos.cms.futurecdn.net/v2/t:0,l:0,cw:1600,ch:900,q:80,w:1600/sq9paQHVtLDHpYYmwUxCjW.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Solar System">
+      </div>
+
+          <!-- Moons -->
+            <div class="col-lg-9" style="margin-bottom: 5px;">
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-moon fa-2x text-secondary me-3"></i>
+              <div>
+                <h5>Moons</h5>
+                <p>
+                  Moons orbit planets and dwarf planets. 
+                  <br><strong>Earth’s Moon:</strong> Affects tides, largest relative to its planet. <br>
+                  <strong>Jupiter:</strong> Has over 90 moons including Ganymede, the largest in the Solar System. <br>
+                  <strong>Saturn:</strong> Titan, larger than Mercury. <br>
+                  Other planets also have fascinating moons with icy oceans and volcanoes.
+                </p>
+              </div>
+            </div>
+          </div>
+           </div>
+        </div>
+           <div class="col-lg-3 text-center" style="margin-bottom: 5px;">
+        <img 
+          src="https://i.natgeofe.com/k/082b37d7-d83c-4033-886e-b081fa4fa0f2/moon_square.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Solar System">
+      </div>
+
+          <!-- Small Bodies -->
+            <div class="col-lg-9" style="margin-bottom: 5px;">
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="d-flex align-items-start mb-4">
+              <i class="fas fa-meteor fa-2x text-danger me-3"></i>
+              <div>
+                <h5>Asteroids, Comets & Meteoroids</h5>
+                <p>
+                  <strong>Asteroids:</strong> Rocky objects, mostly in the asteroid belt between Mars and Jupiter. <br>
+                  <strong>Comets:</strong> Icy bodies that develop glowing tails when near the Sun. <br>
+                  <strong>Meteoroids:</strong> Small rocks; when entering Earth’s atmosphere they create meteors or “shooting stars.”
+                </p>
+              </div>
+            </div>
+          </div>
+           </div>
+        </div>
+           <div class="col-lg-3 text-center" style="margin-bottom: 5px;">
+        <img 
+          src="https://media.npr.org/assets/img/2014/01/29/asteroidbelt_wide-6088ee8b85d3ae18efbcfb603f50711660a687d3.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Solar System">
+      </div>
+        </div>
+      </div>
+
+      <!-- Image -->
+
      
-     <hr style="color:white">
-     <footer>
-        <div id="footer" >
-              <div class="common"> 
-                  <h5>About</h5>
-                  <ul>
-                      <li href="#">Contact us</li>
-                      <li href="#">About us</li>
-                      <li href="#">Career </li>
-                      <li href="#">Galaxy Stories</li>
-                      <li href="#">Press</li>
-                  </ul>
-              </div>
-              <div class="common">
-                  <h5>News & Event</h5>
-                  <ul>
-                      <li href="#">Solar System</li>
-                      <li href="#">The Universe</li>
-                      <li href="#">Earth Climate</li>
-                      <li href="#">Human Space</li>
-                      <li href="#">Technology</li>
-                  </ul>
-              </div>
-              <div class="common">
-                  <h5>Social</h5>
-                  <ul>
-                      <li href="#">Instagram</li>
-                      <li href="#">Facebook</li>
-                      <li href="#">Article</li>
-                      <li href="#">Whatsapp</li>
-                      <li href="#">Youtube</li>
-                  </ul>
-                  
-              </div>
+     <button id="backBtn" class="hero-btn"  style="  display: flex;
+  justify-self: center;" onclick="previousPage()">
+      Back
+      </button>
+     
+  </div>
+</div>
+
+<div id="blackHole" class="page-content">
+  <div class="container py-5">
+    <div class="row">
+      <h1 class="display-4 mb-3 text-center">Black Holes</h1>
+      <h4 class="text-muted text-center mb-4">Mysteries of Space and Time</h4>
+
+      <p class="lead text-center">
+        Black holes are among the most fascinating and mysterious objects in the universe. 
+        They represent regions in space where gravity is so powerful that nothing—not even light—can escape. 
+        Born from the collapse of massive stars, black holes challenge our understanding of physics, 
+        time, and the very fabric of the cosmos.
+      </p>
+    </div>
+
+    <!-- Row 1: What is a Black Hole + Image -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-circle text-dark fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>What is a Black Hole?</h5>
+            <p>
+              A black hole forms when a very massive star runs out of fuel and undergoes gravitational collapse. 
+              Its core shrinks into an incredibly small, dense point called a <strong>singularity</strong>, 
+              surrounded by a boundary known as the <strong>event horizon</strong>. 
+              Anything that crosses this horizon cannot escape the gravitational pull—not even light—hence the name “black” hole. 
+              Black holes do not actively pull matter like a vacuum cleaner; instead, objects must come close enough to be trapped by their gravity.
+            </p>
+          </div>
         </div>
-      </footer>
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://media.istockphoto.com/id/1498666644/photo/black-hole-clouds-high-quality-render.jpg?s=612x612&w=0&k=20&c=AjpX_Gh_HiImQ8OyP-RnstDV1imt4QiU1268jhmL9w4=" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Black Hole">
+      </div>
+    </div>
+
+    <!-- Row 2: Types + Hawking -->
+    <div class="row align-items-start mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-clock text-info fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Types of Black Holes</h5>
+            <p>
+              Black holes come in different sizes. 
+              <br><strong>Stellar Black Holes:</strong> Formed when massive stars collapse; typically 5–20 times the Sun’s mass. 
+              <br><strong>Supermassive Black Holes:</strong> Found at the centers of galaxies, including our Milky Way. 
+              These giants are millions or even billions of times the mass of the Sun. 
+              <br><strong>Intermediate Black Holes:</strong> Rare, with masses between stellar and supermassive. 
+              <br><strong>Primordial Black Holes:</strong> Hypothetical ancient black holes that may have formed soon after the Big Bang.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://ntvb.tmsimg.com/assets/assets/315047_v9_ba.jpg?w=360&h=480" 
+          class="img-fluid rounded shadow-lg mb-3" 
+          style="height: 250px; width: 200px; object-fit: cover;" 
+          alt="Stephen Hawking">
+        <h5><i class="fas fa-user-astronaut text-primary me-2"></i>Stephen Hawking's Contribution</h5>
+        <p class="mb-1">January 8, 1942 – March 14, 2018</p>
+        <div style="font-size: 12px; text-align: justify;">
+          Stephen Hawking made groundbreaking contributions to our understanding of black holes. 
+          He proposed that black holes are not entirely black but emit faint radiation, now called 
+          <strong>Hawking Radiation</strong>, caused by quantum effects near the event horizon. 
+          This discovery suggested that black holes can gradually lose mass and eventually evaporate. 
+          His work connected quantum mechanics, relativity, and thermodynamics, reshaping modern physics.
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Importance + Mystery -->
+    <div class="row align-items-start" style="position: relative;
+    top: -306px;">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start mb-4">
+          <i class="fas fa-eye text-danger fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Why Are They Important?</h5>
+            <p>
+              Black holes help scientists test the laws of physics, especially Albert Einstein’s 
+              <strong>theory of general relativity</strong>. 
+              They affect nearby stars and gas clouds, producing intense radiation and energetic jets visible across space. 
+              The study of black holes also contributes to our understanding of galaxy formation and the life cycle of stars. 
+              In 2019, the first-ever image of a black hole’s shadow (in galaxy M87) was captured, 
+              marking a historic milestone in astronomy.
+            </p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-start" style="margin-top: 75px;">
+          <i class="fas fa-question-circle text-warning fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>The Mystery of Black Holes</h5>
+            <p>
+              Despite decades of research, many questions remain unanswered. 
+              What happens inside the singularity? Do black holes connect to other universes through “wormholes”? 
+              Could they hold the key to understanding quantum gravity? 
+              Black holes represent one of the greatest cosmic puzzles, blending science with mystery. 
+              As technology advances, astronomers continue to unlock their secrets, 
+              giving us a glimpse into the most extreme environments in the universe.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <button id="backBtn" class="hero-btn"  style="  display: flex;
+  justify-self: center;" onclick="previousPage()">
+      Back
+      </button>
+</div>
+
+<div id="exoplanets" class="page-content">
+  <div class="container py-5">
+    <div class="row">
+      <h1 class="display-4 mb-3 text-center">Exoplanets</h1>
+      <h4 class="text-muted text-center mb-4">Worlds Beyond Our Solar System</h4>
+
+      <p class="lead text-center">
+        Exoplanets are planets orbiting stars beyond our Solar System. 
+        Scientists have discovered thousands of these worlds using telescopes like 
+        <strong>Kepler</strong> and <strong>James Webb</strong>. 
+        Among them, a few stand out as potentially habitable, 
+        lying in the “Goldilocks Zone” where liquid water could exist, 
+        raising the exciting possibility of alien life. 
+        Here are three of the most fascinating candidates.
+      </p>
+    </div>
+
+    <!-- Planet 1 -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-globe text-success fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Kepler-452b</h5>
+            <p>
+              Discovered in 2015 by NASA’s Kepler Space Telescope, Kepler-452b is often called 
+              “Earth’s cousin” because of its striking similarities to our planet. Located about 
+              1,400 light-years away in the constellation Cygnus, this exoplanet orbits a Sun-like star 
+              within its habitable zone, where conditions could allow liquid water. Kepler-452b is 
+              approximately 60% larger than Earth, making it a “super-Earth.” Scientists believe it 
+              could have a rocky surface and possibly an atmosphere capable of supporting life. 
+              However, because its star is older and hotter than the Sun, Kepler-452b might be going 
+              through a greenhouse effect stage, potentially making it less friendly to life today. 
+              Even so, its discovery has been crucial in showing that Earth-like planets are common 
+              in our galaxy.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://preview.redd.it/nwgki8uxj2y51.jpg?width=1080&crop=smart&auto=webp&s=bd1296b4d54d3240e45fe9616a9f97ef915c3ff3" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Kepler-452b">
+      </div>
+    </div>
+
+    <!-- Planet 2 -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fa-solid fa-earth-oceania text-primary fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>TRAPPIST-1 System</h5>
+            <p>
+              In 2017, astronomers discovered an extraordinary planetary system orbiting a small, 
+              cool red dwarf star just 40 light-years away, known as TRAPPIST-1. This system contains 
+              seven Earth-sized planets—the largest number of Earth-like worlds ever found around a 
+              single star. What makes TRAPPIST-1 remarkable is that at least three of these planets—TRAPPIST-1d, 
+              TRAPPIST-1e, and TRAPPIST-1f—are located in the habitable zone. These planets are rocky, 
+              similar in size to Earth, and could have the right temperatures to support liquid water. 
+              Their close distance to each other also means that someone standing on the surface might 
+              see other planets in the sky as large as our Moon appears from Earth. Because the star is 
+              much cooler than the Sun, the habitable zone is closer in, which makes studying these planets 
+              easier with telescopes like James Webb.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://scitechdaily.com/images/Astronomers-Confirm-Orbital-Details-of-TRAPPIST-1.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="TRAPPIST-1 System">
+      </div>
+    </div>
+
+    <!-- Planet 3 -->
+    <div class="row align-items-center">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-star text-warning fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Proxima Centauri b</h5>
+            <p>
+              Proxima Centauri b is perhaps the most exciting exoplanet because it orbits the 
+              closest star to our Solar System—Proxima Centauri—just 4.2 light-years away. 
+              Discovered in 2016, this planet is only slightly larger than Earth and lies in 
+              its star’s habitable zone, where surface temperatures could allow water to exist. 
+              However, Proxima Centauri is a red dwarf star, which emits powerful solar flares 
+              that may strip away the planet’s atmosphere and make life difficult. Despite these 
+              challenges, the planet’s proximity means that future space probes could one day 
+              reach it, making it a prime candidate for exploration. Some scientists even believe 
+              that if Proxima b has a protective magnetic field or thick atmosphere, it could 
+              maintain habitable conditions. Its closeness makes it one of humanity’s most 
+              realistic hopes for finding a second Earth.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm-dSBdoVYeLnTxC8wrv-piiX3VKLFvRLZQw&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Proxima Centauri b">
+      </div>
+    </div>
+    <button id="backBtn" class="hero-btn"  style="  display: flex;
+  justify-self: center;" onclick="previousPage()">
+      Back
+      </button>
+  </div>
+    
+</div>
+<div id="galaxiescard" class="page-content">
+  <div class="container py-5">
+    <div class="row">
+      <h1 class="display-4 mb-3 text-center">Galaxies</h1>
+      <h4 class="text-muted text-center mb-4">Islands of Stars in the Universe</h4>
+
+      <p class="lead text-center">
+        Galaxies are enormous systems of stars, planets, gas, dust, and dark matter bound together by gravity. 
+        They come in many shapes—spiral, elliptical, and irregular—and contain everything from giant black holes 
+        to billions of stars like our Sun. The Milky Way, our home galaxy, is just one of trillions in the universe. 
+        Studying galaxies helps scientists understand cosmic evolution, dark matter, and the ultimate fate of the universe. 
+        Here are some of the most fascinating galaxies ever observed.
+      </p>
+    </div>
+
+    <!-- Galaxy 1 -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-circle text-danger fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Cigar Galaxy (M82)</h5>
+            <p>
+              The Cigar Galaxy, also known as <strong>Messier 82 (M82)</strong>, lies about 12 million light-years away 
+              in the constellation Ursa Major. It earned its nickname because of its elongated, cigar-like shape. 
+              M82 is a <em>starburst galaxy</em>, meaning it has an exceptionally high rate of star formation—about 
+              ten times faster than the Milky Way. The intense activity is thought to be triggered by gravitational 
+              interactions with its neighbor, the larger M81 galaxy. Explosive stellar winds and massive clouds of 
+              gas are visible, making M82 one of the brightest and most studied galaxies in the night sky.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://science.nasa.gov/wp-content/uploads/2023/04/m82-jpg.webp" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Cigar Galaxy (M82)">
+      </div>
+    </div>
+
+    <!-- Galaxy 2 -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-circle text-primary fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Whirlpool Galaxy (M51)</h5>
+            <p>
+              The <strong>Whirlpool Galaxy</strong>, or <strong>Messier 51 (M51)</strong>, is one of the most famous 
+              spiral galaxies, located about 23 million light-years away in the constellation Canes Venatici. 
+              Its striking spiral arms are packed with young, hot stars and glowing nebulae. The Whirlpool is 
+              interacting with a smaller companion galaxy, NGC 5195, which is tugging at its spiral structure and 
+              creating dramatic waves of star formation. Images from the <strong>Hubble Space Telescope</strong> 
+              have revealed stunning details, making the Whirlpool a textbook example of a grand-design spiral galaxy.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://chandra.harvard.edu/photo/2014/m51/m51.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Whirlpool Galaxy (M51)">
+      </div>
+    </div>
+
+    <!-- Galaxy 3 -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-circle text-warning fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Andromeda Galaxy (M31)</h5>
+            <p>
+              The <strong>Andromeda Galaxy</strong>, or <strong>Messier 31 (M31)</strong>, is the closest large galaxy 
+              to the Milky Way, located just 2.5 million light-years away. It is a massive spiral galaxy with 
+              nearly twice as many stars as the Milky Way—estimated at over one trillion. Andromeda is on a slow 
+              collision course with our galaxy, and the two are expected to merge in about 4.5 billion years, 
+              creating a new “Milkdromeda” galaxy. Its brightness and proximity make Andromeda one of the few 
+              galaxies visible to the naked eye from Earth.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1TZgunBq5BwUljQ6r4NFBpV8DQ0zpUdBSXQ&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Andromeda Galaxy (M31)">
+      </div>
+    </div>
+  </div>
+    <button id="backBtn" class="hero-btn"  style="  display: flex;
+  justify-self: center;" onclick="previousPage()">
+      Back
+      </button>
+</div>
+
+
+<div id="spacestations" class="page-content">
+  <div class="container py-5">
+    <div class="row">
+      <h1 class="display-4 mb-3 text-center">Space Stations</h1>
+      <h4 class="text-muted text-center mb-4">Human Outposts in Space</h4>
+
+      <p class="lead text-center">
+        Space stations are large spacecraft that remain in orbit around Earth and serve as living 
+        and working laboratories for astronauts. They allow long-term human presence in space, 
+        supporting research in astronomy, biology, physics, and technology. Over the years, 
+        nations have built and operated different space stations, each contributing to our dream 
+        of exploring beyond Earth. Here are four of the most notable ones.
+      </p>
+    </div>
+
+    <!-- Station 1 -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-satellite text-primary fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>International Space Station (ISS)</h5>
+            <p>
+              The <strong>ISS</strong> is the largest and most advanced space station ever built, 
+              orbiting Earth since 1998. It is a collaboration between NASA, Roscosmos, ESA, JAXA, 
+              and CSA, representing one of the greatest achievements in international cooperation. 
+              The ISS orbits Earth every 90 minutes, traveling at about 28,000 km/h. 
+              Astronauts aboard conduct experiments in microgravity that benefit science, medicine, 
+              and technology on Earth. It is expected to remain in operation until at least 2030.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/International_Space_Station_after_undocking_of_STS-132.jpg/250px-International_Space_Station_after_undocking_of_STS-132.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="International Space Station (ISS)">
+      </div>
+    </div>
+
+    <!-- Station 2 -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-satellite-dish text-danger fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Tiangong Space Station</h5>
+            <p>
+              <strong>Tiangong</strong>, meaning “Heavenly Palace,” is China’s modular space station, 
+              launched in 2021. When fully assembled, it will weigh around 66 tons and support 
+              long-duration missions with three astronauts at a time. Tiangong is equipped with 
+              laboratories for experiments in life sciences, materials science, and space technology. 
+              It symbolizes China’s growing role in human space exploration and is expected to be 
+              operational for at least 10–15 years.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUKox8bGc3vvuVZiYfrv07aPNeaxojJnVcvg&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Tiangong Space Station">
+      </div>
+    </div>
+
+    <!-- Station 3 -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-space-shuttle text-success fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Mir Space Station</h5>
+            <p>
+              The <strong>Mir</strong> Space Station was launched by the Soviet Union in 1986 
+              and became the first modular space station. It remained in orbit for 15 years, 
+              hosting astronauts from many countries. At its peak, Mir was the largest artificial 
+              satellite in orbit, and it pioneered long-duration human spaceflight. 
+              Experiments on Mir paved the way for the construction and operation of the ISS. 
+              It was deorbited in 2001, burning up in Earth’s atmosphere.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://www.nasa.gov/wp-content/uploads/2021/03/mir_reentry_5_mir_from_sts_91_sts091-727-051.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Mir Space Station">
+      </div>
+    </div>
+
+    <!-- Station 4 -->
+    <div class="row align-items-center">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-rocket text-warning fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Skylab</h5>
+            <p>
+              <strong>Skylab</strong> was the United States’ first space station, launched in 1973. 
+              It was designed as a laboratory to study the effects of long-term spaceflight on the 
+              human body and to observe the Sun and Earth. Skylab missions provided valuable data 
+              that guided future space programs. Though its operational life was short, ending in 1979, 
+              Skylab marked a key step in America’s journey toward permanent human presence in space.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Skylab_%28SL-4%29.jpg/330px-Skylab_%28SL-4%29.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Skylab Space Station">
+      </div>
+    </div>
+  </div>
+    <button id="backBtn" class="hero-btn"  style="  display: flex;
+  justify-self: center;" onclick="previousPage()">
+      Back
+      </button>
+</div>
+
+
+
+<div id="marsexploration" class="page-content">
+  <div class="container py-5">
+    <div class="row">
+      <h1 class="display-4 mb-3 text-center">Mars Exploration</h1>
+      <h4 class="text-muted text-center mb-4">Humanity’s Quest to Explore the Red Planet</h4>
+
+      <p class="lead text-center">
+        Mars has always fascinated humanity as Earth’s closest planetary neighbor and 
+        a potential future home for life. Over the decades, nations have launched 
+        ambitious missions to study its atmosphere, surface, and potential for life. 
+        The United States, India, and China have all made historic contributions, 
+        marking milestones in our journey to the Red Planet.
+      </p>
+    </div>
+
+  
+    <!-- India -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-satellite text-danger fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>India – ISRO</h5>
+            <p>
+              India’s <strong>Mars Orbiter Mission (MOM)</strong>, also known as <strong>Mangalyaan</strong>, 
+              was launched in 2013 by the Indian Space Research Organisation (ISRO). 
+              It made history in 2014 when India became the <strong>first Asian country</strong> 
+              to successfully reach Mars orbit, and the <strong>first nation to succeed on its maiden attempt</strong>. 
+              Costing just $74 million, it was one of the most economical interplanetary missions ever. 
+              MOM studied Mars’ atmosphere, surface features, and mineralogy, sending back striking images of the Red Planet. 
+              Although designed for 6 months, the mission lasted over 7 years. 
+              Mangalyaan showcased India’s growing capability in space exploration and 
+              inspired millions by proving that even with limited resources, ambitious goals can be achieved.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://cdn.mos.cms.futurecdn.net/EnMM9kix2PgEEcnH4LXeQg.png" 
+          class="img-fluid rounded shadow-lg" 
+          alt="India Mangalyaan Mars Orbiter Mission">
+      </div>
+    </div>
+
+      <!-- USA -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-flag-usa text-primary fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>United States – NASA</h5>
+            <p>
+              The United States, through NASA, has been the global leader in Mars exploration. 
+              Since the 1960s, it has launched numerous missions, including orbiters, landers, and rovers. 
+              Key achievements include the <strong>Viking landers</strong> (1976), the first successful Mars landings, 
+              and the <strong>Curiosity</strong> and <strong>Perseverance rovers</strong>, which study Martian geology and search for signs of life. 
+              In 2021, Perseverance made history by carrying the <strong>Ingenuity helicopter</strong>, the first aircraft to fly on another planet. 
+              NASA’s missions have revealed evidence of ancient water flows, habitable conditions, 
+              and provided samples for future return missions. The U.S. continues to pave the way toward 
+              a possible human mission to Mars in the coming decades.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdE9X45onDgEpDZT31IGXynRZzyIcgJg34Wg&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="NASA Mars Rover Perseverance">
+      </div>
+    </div>
+
+
+    <!-- China -->
+    <div class="row align-items-center">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-dragon text-success fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>China – CNSA</h5>
+            <p>
+              China’s <strong>Tianwen-1 mission</strong>, launched in 2020 by the China National Space Administration (CNSA), 
+              marked a groundbreaking achievement in Mars exploration. 
+              It was the <strong>first mission by any country to successfully orbit, land, and deploy a rover on Mars in its debut attempt</strong>. 
+              The <strong>Zhurong rover</strong> landed in 2021 on Utopia Planitia and explored the Martian surface, 
+              studying soil, rocks, weather, and searching for signs of water ice. 
+              This achievement placed China alongside the U.S. as the only nations to successfully operate rovers on Mars. 
+              Tianwen-1 demonstrated China’s rapid progress in space exploration and strengthened its vision for 
+              future deep-space missions, including potential sample return missions and human exploration.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://media.cnn.com/api/v1/images/stellar/prod/200424111012-china-mars-mission-tianwen-1.jpg?q=x_2,y_0,h_898,w_1596,c_crop/h_833,w_1480" 
+          class="img-fluid rounded shadow-lg" 
+          alt="China Zhurong Rover Tianwen-1">
+      </div>
+    </div>
+  </div>
+    <button id="backBtn" class="hero-btn"  style="  display: flex;
+  justify-self: center;" onclick="previousPage()">
+      Back
+      </button>
+</div>
+
+<div id="earthformation" class="page-content">
+  <div class="container py-5">
+    <div class="row">
+      <h1 class="display-4 mb-3 text-center">Earth Formation & Growth</h1>
+      <h4 class="text-muted text-center mb-4">The Story of Our Home Planet</h4>
+
+      <p class="lead text-center">
+        Earth, our life-giving home, has a remarkable history stretching back 
+        <strong>4.5 billion years</strong>. From a fiery ball of molten rock to a 
+        vibrant blue world teeming with life, Earth has undergone incredible 
+        transformations. Let’s explore the key stages of how our planet formed 
+        and grew into what we know today.
+      </p>
+    </div>
+
+    <!-- Early Formation -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-fire text-danger fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Early Formation – Molten Earth</h5>
+            <p>
+              About <strong>4.5 billion years ago</strong>, Earth was formed 
+              from dust and gas left over after the Sun’s birth. 
+              At first, it was a <strong>molten ball of rock and metal</strong>, 
+              constantly bombarded by asteroids and comets. 
+              During this time, heavy elements like iron sank to the core, 
+              while lighter ones rose to form the crust and atmosphere.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvQnfVS_1vau6ocr6XFazH0JbE9BiWoLy1BQ&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Molten Earth Formation">
+      </div>
+    </div>
+
+    <!-- Cooling and Oceans -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-water text-primary fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Cooling Phase – Oceans & Atmosphere</h5>
+            <p>
+              As Earth cooled, water vapor condensed to form 
+              <strong>oceans</strong>. Volcanic gases helped create a 
+              primitive atmosphere rich in carbon dioxide, nitrogen, and water vapor. 
+              These oceans became the cradle of life, offering the first stable 
+              environment for chemical reactions and living organisms to emerge.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpoU5pcjEwwsh-HQ9D_KtSF6PfmLQG7ULKrg&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Formation of Oceans">
+      </div>
+    </div>
+
+    <!-- Origin of Life -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-dna text-success fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Origin of Life – First Organisms</h5>
+            <p>
+              Around <strong>3.5 billion years ago</strong>, simple life forms 
+              like microbes appeared in the oceans. 
+              These organisms released oxygen into the atmosphere through 
+              photosynthesis, leading to the <strong>Great Oxidation Event</strong>. 
+              Oxygen made Earth habitable for more complex plants and animals 
+              over time.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPxSwR_6L6L5m7QHbDU3RQpr7Y1hnu1Iwlmg&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Microbial Life on Earth">
+      </div>
+    </div>
+
+    <!-- Continents & Modern Earth -->
+    <div class="row align-items-center">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-globe-asia text-warning fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Continents & Modern Earth</h5>
+            <p>
+              Over billions of years, Earth’s crust shifted due to 
+              <strong>plate tectonics</strong>, forming continents and mountains. 
+              Life diversified – from dinosaurs to humans – making Earth the 
+              <strong>only known planet to support intelligent life</strong>. 
+              Today, Earth remains a dynamic, living planet, constantly 
+              reshaped by natural forces and human activities.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Modern Earth from Space">
+      </div>
+    </div>
+  </div>
+    <button id="backBtn" class="hero-btn"  style="  display: flex;
+  justify-self: center;" onclick="previousPage()">
+      Back
+      </button>
+</div>
+
+
+<div id="galaxiessecrets" class="page-content">
+  <div class="container py-5">
+    <div class="row">
+      <h1 class="display-4 mb-3 text-center">Galaxies Secrets</h1>
+      <h4 class="text-muted text-center mb-4">Mysteries Hidden in the Cosmic Islands</h4>
+
+      <p class="lead text-center">
+        Galaxies are vast collections of stars, planets, gas, dust, and dark matter, 
+        bound together by gravity. Yet, despite centuries of observation, 
+        they still hold incredible secrets that scientists are only beginning to uncover. 
+        From unseen matter to strange black holes, galaxies remain one of the universe’s 
+        greatest enigmas.
+      </p>
+    </div>
+
+    <!-- Dark Matter -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-circle text-dark fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Hidden Dark Matter</h5>
+            <p>
+              Scientists believe that <strong>over 85% of a galaxy’s mass</strong> 
+              is made of <strong>dark matter</strong> – an invisible substance that 
+              does not emit light. Without it, galaxies would fly apart because their 
+              stars rotate too fast to be held by visible matter alone. 
+              Understanding dark matter is one of the biggest challenges in astronomy.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3xEC03GItG8f9TYzwhuvO3vxL3NNmpiEH6w&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Dark Matter in Galaxy">
+      </div>
+    </div>
+
+    <!-- Supermassive Black Holes -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-circle-notch text-secondary fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Galactic Hearts of Black Holes</h5>
+            <p>
+              Almost every major galaxy, including our Milky Way, 
+              harbors a <strong>supermassive black hole</strong> at its center. 
+              Some of these giants are millions or even billions of times more 
+              massive than our Sun. They shape the galaxy’s growth, 
+              control star formation, and produce powerful jets of energy 
+              that can extend thousands of light-years into space.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://cdn.mos.cms.futurecdn.net/SMPVBAXsu6KX7tt534L9x4.png" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Supermassive Black Hole">
+      </div>
+    </div>
+
+    <!-- Galactic Collisions -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-compress-arrows-alt text-danger fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Cosmic Collisions</h5>
+            <p>
+              Galaxies are not static – they <strong>collide and merge</strong> 
+              with one another over billions of years. 
+              Our own Milky Way is on a collision course with the Andromeda Galaxy 
+              and will merge in about <strong>4.5 billion years</strong>. 
+              These colossal events reshape galaxies, creating new stars and 
+              completely altering their structure.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5xXpbbXGUhCRvrFyZOUrJOHfTB-GI00oGBw&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Galaxy Collision">
+      </div>
+    </div>
+
+    <!-- Star Factories -->
+    <div class="row align-items-center">
+      <div class="col-lg-9">
+        <div class="d-flex align-items-start">
+          <i class="fas fa-star text-warning fa-2x me-3"></i>
+          <div class="solartext">
+            <h5>Galaxies as Star Factories</h5>
+            <p>
+              Galaxies are not just collections of stars – 
+              they are <strong>star factories</strong>. 
+              Giant clouds of gas collapse under gravity to form new stars, 
+              while dying stars enrich galaxies with heavy elements. 
+              The Milky Way alone produces about <strong>7 new stars each year</strong>, 
+              proving galaxies are constantly evolving, 
+              recycling matter, and fueling cosmic life cycles.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-center">
+        <img 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKLs6gMpGoQxW6yQT739UoU1KICBz-CHZkGQ&s" 
+          class="img-fluid rounded shadow-lg" 
+          alt="Galaxy Star Formation">
+      </div>
+    </div>
+  </div>
+    <button id="backBtn" class="hero-btn"  style="  display: flex;
+  justify-self: center;" onclick="previousPage()">
+      Back
+      </button>
+</div>
+
+
+
+    <!-- GALLERY PAGE -->
+    <div id="gallery" class="page-content">
+        <div class="container py-5">
+            <h1 class="display-4 text-center mb-5">Space Gallery</h1>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Nebula">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Mars Surface">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Galaxy">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://plus.unsplash.com/premium_photo-1722018576685-45a415a4ff67?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Earth from Space">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://images.unsplash.com/photo-1614728263952-84ea256f9679?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://cdn.thewire.in/wp-content/uploads/2019/03/28083646/Mercury_planet.jpg" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				<div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://cdn.mos.cms.futurecdn.net/RifjtkFLBEFgzkZqWEh69P-970-80.jpg.webp" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				<div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/438/382/396/space-earth-landscapes-planet-wallpaper-preview.jpg" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				
+					<div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://t3.ftcdn.net/jpg/01/46/08/18/360_F_146081893_wF3i2pmbUscwgIf5XliB3C0PiGaNLLN8.jpg" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				
+				
+					<div class="col-lg-4 col-md-6 mb-4">
+                    <img src=" https://media.istockphoto.com/id/1331092613/photo/jupiter-planet-3d-render-illustration-high-detailed-surface-features.jpg?s=612x612&w=0&k=20&c=JHTXodXk_Syg5w-CZc4G3hYDcJSgnDGak9jbMHjCwu0=" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				
+				
+					<div class="col-lg-4 col-md-6 mb-4">
+                    <img src=" https://images.unsplash.com/photo-1614732414444-096e5f1122d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				
+				
+					<div class="col-lg-4 col-md-6 mb-4">
+                    <img src=" https://t3.ftcdn.net/jpg/00/33/48/46/360_F_33484692_nK6mx4zVg2FzGu6GOklPshaOvATNtHUX.jpg" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				
+				
+					<div class="col-lg-4 col-md-6 mb-4">
+                    <img src=" https://orbitaltoday.com/wp-content/uploads/2022/12/Neptune-featureIMG.jpg" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				
+				
+					<div class="col-lg-4 col-md-6 mb-4">
+                    <img src=" https://cdn.mos.cms.futurecdn.net/DoZSMXF87kCuzbymsuEFHo-1200-80.jpg" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				
+					<div class="col-lg-4 col-md-6 mb-4">
+                    <img src=" https://scitechdaily.com/images/Galaxy-Gravity-Dark-Matter-Art.jpg" class="img-fluid rounded" alt="Lunar Surface">
+                </div>
+				
+            </div>
+        </div>
+    </div>
+
+    <!-- NEWS PAGE -->
+    <div id="news" class="page-content">
+        <div class="container py-5">
+            <h1 class="display-4 text-center mb-5">Latest Space News</h1>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="space-card">
+                        <img src="https://images.unsplash.com/photo-1614728263952-84ea256f9679?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lunar Mission">
+                        <h4>Chandrayaan-3 Success</h4>
+                        <p class="text-muted">September 2023</p>
+                        <p>India's Chandrayaan-3 mission successfully lands on the lunar south pole, making India the fourth country to achieve a soft lunar landing.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="space-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6DgxZ6qMwmpC9IqtaJZShgdFCaJtCSl1lAw&s" alt="James Webb">
+                        <h4>James Webb Discoveries</h4>
+                        <p class="text-muted">August 2023</p>
+                        <p>The James Webb Space Telescope continues to revolutionize our understanding of the universe with stunning images and groundbreaking discoveries.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="space-card">
+                        <img src="https://i.natgeofe.com/n/0f659d0e-084a-4901-ad8a-d7209f083684/marswater_16x9.jpg?w=1200" alt="Mars Research">
+                        <h4>Mars Water Evidence</h4>
+                        <p class="text-muted">July 2023</p>
+                        <p>New evidence suggests that liquid water may still exist beneath the surface of Mars, raising possibilities for past or present microbial life.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="space-card">
+                        <img src="https://cdn.mos.cms.futurecdn.net/qX94KqGUZxRD8cqBQGYKVW-1200-80.jpg" alt="Exoplanet Discovery">
+                        <h4>Habitable Exoplanet Found</h4>
+                        <p class="text-muted">June 2023</p>
+                        <p>Astronomers discover a potentially habitable exoplanet in the Goldilocks zone of a nearby star system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page-content">
+        <div class="container py-5">
+            <h1 class="display-4 text-center mb-5">Contact Us</h1>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="contact-form">
+                        <h3 class="mb-4">Get in Touch</h3>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Your first name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Your last name" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="your.email@example.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone (Optional)</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="Your phone number">
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <select class="form-control" id="subject" required>
+                                    <option value="">Choose a subject...</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="collaboration">Collaboration</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="technical">Technical Support</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Tell us about your interest in space exploration..." required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-lg" style="background: linear-gradient(45deg, var(--accent-color), #00bcd4); border: none; color: white; padding: 12px 30px; border-radius: 25px;">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="row mt-5">
+                <div class="col-lg-4 text-center">
+                    <div class="space-card">
+                        <i class="fas fa-map-marker-alt fa-3x text-info mb-3"></i>
+                        <h5>Location</h5>
+                        <p>Space Research Center<br>New Delhi, India</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="space-card">
+                        <i class="fas fa-envelope fa-3x text-info mb-3"></i>
+                        <h5>Email</h5>
+                        <p>contact@spaceexplorer.com<br>info@spaceexplorer.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="space-card">
+                        <i class="fas fa-phone fa-3x text-info mb-3"></i>
+                        <h5>Phone</h5>
+                        <p>+91 11 1234 5678<br>+91 98765 43210</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter Modal -->
+    <div class="modal fade" id="newsletterModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-rocket me-2"></i>Subscribe to Space News
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newsletterForm">
+                        <div class="mb-3">
+                            <label for="newsletterEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="newsletterEmail" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newsletterPhone" class="form-label">Phone Number (Optional)</label>
+                            <input type="tel" class="form-control" id="newsletterPhone" placeholder="Your phone number">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                <label class="form-check-label" for="agreeTerms">
+                                    I agree to receive space news and updates
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="subscribeNewsletter()">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5><i class="fas fa-info-circle me-2"></i>About</h5>
+                    <ul>
+                        <li onclick="showPage('contact')">Contact Us</li>
+                        <li onclick="showPage('about')">About Us</li>
+                        <li>Careers</li>
+                        <li>Galaxy Stories</li>
+                        <li>Press</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5><i class="fas fa-newspaper me-2"></i>News & Events</h5>
+                    <ul>
+                        <li onclick="showPage('explore')">Solar System</li>
+                        <li onclick="showPage('explore')">The Universe</li>
+                        <li onclick="showPage('news')">Earth Climate</li>
+                        <li onclick="showPage('missions')">Human Space</li>
+                        <li onclick="showPage('news')">Technology</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5><i class="fas fa-share-alt me-2"></i>Social</h5>
+                    <ul>
+                        <li><i class="fab fa-instagram me-2"></i>Instagram</li>
+                        <li><i class="fab fa-facebook me-2"></i>Facebook</li>
+                        <li><i class="fas fa-article me-2"></i>Articles</li>
+                        <li><i class="fab fa-whatsapp me-2"></i>WhatsApp</li>
+                        <li><i class="fab fa-youtube me-2"></i>YouTube</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5><i class="fas fa-bell me-2"></i>Newsletter</h5>
+                    <p>Stay updated with the latest space discoveries!</p>
+                    <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#newsletterModal">
+                        <i class="fas fa-envelope me-2"></i>Subscribe
+                    </button>
+                </div>
+            </div>
+            <hr style="border-color: var(--card-border);">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p>&copy; 2024 Space Explorer. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Exploring the cosmos, one discovery at a time.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme Toggle Function
+     function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById("themeIcon");
+    const currentTheme = body.getAttribute("data-theme") || "dark";
+
+    if (currentTheme === "dark") {
+      body.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+      icon.className = "fas fa-moon"; // show moon for next toggle
+    } else {
+      body.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+      icon.className = "fas fa-sun"; // show sun for next toggle
+    }
+
+    // Smooth transition
+    body.style.transition = "all 0.3s ease";
+    setTimeout(() => (body.style.transition = ""), 300);
+  }
+
+  // Load saved theme on page load
+  window.addEventListener("load", function () {
+    const savedTheme = localStorage.getItem("theme") || "dark"; // default dark
+    document.body.setAttribute("data-theme", savedTheme);
+
+    const icon = document.getElementById("themeIcon");
+    if (savedTheme === "dark") {
+      icon.className = "fas fa-sun"; // dark theme → show sun
+    } else {
+      icon.className = "fas fa-moon"; // light theme → show moon
+    }
+  });
+
+   let pageHistory = []; // stack of visited pages
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+             const currentPage = document.querySelector('.page-content.active');
+               if (currentPage && currentPage.id !== pageId) {
+        pageHistory.push(currentPage.id);
+    }
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+          
+          
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update URL hash
+            window.location.hash = pageId;
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Close mobile menu if open
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+            }
+        }
+
+        function previousPage() {
+    if (pageHistory.length > 0) {
+        const lastPage = pageHistory.pop(); // get previous page
+        showPage(lastPage);
+    } else {
+        showPage('home'); // default fallback
+    }
+}
+
+        
+
+        // Handle browser back/forward
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+        });
+
+        // Contact Form Handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you for your message! We\'ll get back to you soon.');
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Newsletter Subscription
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletterEmail').value;
+            const phone = document.getElementById('newsletterPhone').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            if (!email) {
+                alert('Please enter your email address.');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                alert('Please agree to receive updates.');
+                return;
+            }
+            
+            // Simulate subscription
+            alert('Successfully subscribed to Space Explorer newsletter!');
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('newsletterModal'));
+            modal.hide();
+            
+            // Reset form
+            document.getElementById('newsletterForm').reset();
+        }
+
+        // Smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation for page transitions
+        function addLoadingEffect() {
+            const body = document.body;
+            body.style.opacity = '0.7';
+            setTimeout(() => {
+                body.style.opacity = '1';
+            }, 300);
+        }
+
+        // Initialize carousel auto-play
+        const carousel = new bootstrap.Carousel(document.getElementById('spaceCarousel'), {
+            interval: 5000,
+            wrap: true
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.space-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
 </html>
